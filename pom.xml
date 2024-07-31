@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.3.1</version>
     </parent>
 
     <name>zoey-chat-boot</name>
@@ -31,31 +31,32 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Project version -->
         <!--版本说明：https://github.com/alibaba/spring-cloud-alibaba/wiki/-->
-        <spring.boot.version>3.3.2</spring.boot.version>
+        <spring.boot.version>3.3.1</spring.boot.version>
         <!--        <spring-cloud.version>2022.0.0</spring-cloud.version>-->
         <!--        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>-->
-        <!-- 微服务相关 -->
-        <dubbo.version>3.3.0-beta.1</dubbo.version>
-        <zookeeper.version>3.7.0</zookeeper.version>
+
         <!-- DB 相关 -->
-        <mysql.connector.version>8.3.0</mysql.connector.version>
-        <mybatis.plus.starter.version>3.5.5</mybatis.plus.starter.version>
+        <mysql.connector.version>8.4.0</mysql.connector.version>
+        <mybatis.plus.starter.version>3.5.6</mybatis.plus.starter.version>
         <mybatis.spring.version>3.0.3</mybatis.spring.version>
-        <druid.boot.starter.version>1.2.21</druid.boot.starter.version>
-        <mybatis.boot.starter.version>3.0.3</mybatis.boot.starter.version>
+        <druid.boot.starter.version>1.2.22</druid.boot.starter.version>
         <pagehelper.boot.starter.version>2.1.0</pagehelper.boot.starter.version>
 
 
         <!-- 辅助工具-->
-        <jwt.version>3.4.1</jwt.version>
-        <lombok.version>1.18.30</lombok.version>
+        <jwt.version>4.4.0</jwt.version>
+        <lombok.version>1.18.32</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <guava.version>33.0.0-jre</guava.version>
-        <hutool.version>5.8.26</hutool.version>
+        <guava.version>33.2.0-jre</guava.version>
+        <hutool.version>5.8.27</hutool.version>
         <velocity.version>2.3</velocity.version>
         <swagger.version>3.0.0</swagger.version>
-        <springdoc.version>2.3.0</springdoc.version>
+        <springdoc.version>2.5.0</springdoc.version>
         <jakarta.version>6.0.0</jakarta.version>
+        <easyexcel.version>4.0.1</easyexcel.version>
+        <jasypt.version>3.0.5</jasypt.version>
+        <zxing.version>3.5.3</zxing.version>
+        <commons.io.version>2.16.1</commons.io.version>
 
         <!-- 阿里云存储服务 -->
         <aliyun.sdk.oss.version>3.17.4</aliyun.sdk.oss.version>
@@ -63,10 +64,12 @@
         <activation.version>1.1.1</activation.version>
         <jaxb.runtime.version>2.3.8</jaxb.runtime.version>
 
+        <!-- 消息队列 -->
+        <amqp.client.version>5.21.0</amqp.client.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
-
             <!--web依赖-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -178,12 +181,6 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <!-- hutool工具集-->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -216,22 +213,44 @@
                 <version>${jakarta.version}</version>
             </dependency>
 
-            <!-- 微服务相关 -->
-            <!-- Dubbo -->
+            <!-- 消息队列 -->
             <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-bom</artifactId>
-                <version>${dubbo.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
             <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-zookeeper-curator5</artifactId>
-                <version>${dubbo.version}</version>
-                <type>pom</type>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!-- 二维码生成 -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <!-- io工具 -->
+            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
