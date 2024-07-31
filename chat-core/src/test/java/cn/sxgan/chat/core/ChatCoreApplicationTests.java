@@ -1,10 +1,10 @@
-package cn.sxgan.chat;
+package cn.sxgan.chat.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ZoeyChatBootApplicationTests {
+class ChatCoreApplicationTests {
     
     @Test
     void contextLoads() {

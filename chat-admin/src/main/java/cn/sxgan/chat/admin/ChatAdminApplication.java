@@ -1,13 +1,13 @@
-package cn.sxgan.chat;
+package cn.sxgan.chat.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZoeyChatBootApplication {
+public class ChatAdminApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(ZoeyChatBootApplication.class, args);
+        SpringApplication.run(ChatAdminApplication.class, args);
     }
     
 }
