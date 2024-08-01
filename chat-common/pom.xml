@@ -57,6 +57,12 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
         </dependency>
+        <!-- redis -->
+        <!--redis坐标-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--lombok依赖-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -107,5 +113,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
