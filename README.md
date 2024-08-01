@@ -1,6 +1,6 @@
 [中文](README.md) | [English](README.en.md)
 <p align="center">
-	<img width="200px" height="200px" alt="logo" src="./doc/public/images/chat_logo.png">
+	<img width="200px" height="200px" alt="logo" src="all-doc/public/images/chat_logo.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Zoey Chat v1.0.0</h1>
 <h4 align="center">基于SpringBoot3.2的聊天服务端，包含Redis、Mysql8.0，Docker、Jenkins、WebSocket等相关技术开发的聊天服务</h4>
