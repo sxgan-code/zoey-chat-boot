@@ -2,6 +2,7 @@ package cn.sxgan.chat.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Description: Json工具类
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @Date: 24/8/1 16:17
  * @Version: 1.0
  **/
+@Slf4j
 public class JsonUtil {
     
     /**
@@ -23,7 +25,8 @@ public class JsonUtil {
         try {
             result = om.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.error("Json convert error", e);
+            e.printStackTrace();
         }
         return result;
     }
