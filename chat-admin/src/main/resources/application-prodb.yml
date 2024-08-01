@@ -50,7 +50,7 @@ spring:
 # spring集成Mybatis环境
 mybatis-plus:
   # pojo别名扫描包
-  type-aliases-package: cn.sxgan.common.entity
+  type-aliases-package: cn.sxgan.chat.common.entity
   # 加载Mybatis映射文件
   mapper-locations: classpath:mappers/*Mapper.xml
   global-config:

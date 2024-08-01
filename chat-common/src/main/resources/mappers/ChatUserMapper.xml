@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.sxgan.chat.common.mappers.IChatUserMapper">
+    <resultMap id="BaseResultMap" type="cn.sxgan.chat.common.entity.ChatUser">
+        <result property="userId" column="user_id"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="joinType" column="join_type"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="personalSign" column="personal_sign"/>
+        <result property="status" column="status"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="avatar" column="avatar"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="areaName" column="area_name"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="loginIp" column="login_ip"/>
+        <result property="loginDate" column="login_date"/>
+        <result property="pwdUpdateDate" column="pwd_update_date"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        user_id,
+            email,
+            nickname,
+            join_type,
+            sex,
+            password,
+            salt,
+            personal_sign,
+            status,
+            phone_number,
+            avatar,
+            dept_id,
+            area_name,
+            area_code,
+            create_by,
+            update_by,
+            login_ip,
+            login_date,
+            pwd_update_date,
+            create_time,
+            update_time,
+            remark,
+            del_flag
+    </sql>
+    <sql id="ConditionSql">
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null">
+                and email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="nickname != null">
+                and nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+            <if test="joinType != null">
+                and join_type = #{joinType,jdbcType=TINYINT}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex,jdbcType=TINYINT}
+            </if>
+            <if test="password != null">
+                and password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="salt != null">
+                and salt = #{salt,jdbcType=VARCHAR}
+            </if>
+            <if test="personalSign != null">
+                and personal_sign = #{personalSign,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=TINYINT}
+            </if>
+            <if test="phoneNumber != null">
+                and phone_number = #{phoneNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="avatar != null">
+                and avatar = #{avatar,jdbcType=VARCHAR}
+            </if>
+            <if test="deptId != null">
+                and dept_id = #{deptId,jdbcType=BIGINT}
+            </if>
+            <if test="areaName != null">
+                and area_name = #{areaName,jdbcType=VARCHAR}
+            </if>
+            <if test="areaCode != null">
+                and area_code = #{areaCode,jdbcType=VARCHAR}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy,jdbcType=VARCHAR}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy,jdbcType=VARCHAR}
+            </if>
+            <if test="loginIp != null">
+                and login_ip = #{loginIp,jdbcType=VARCHAR}
+            </if>
+            <if test="loginDate != null">
+                and login_date = #{loginDate,jdbcType=DATETIME}
+            </if>
+            <if test="pwdUpdateDate != null">
+                and pwd_update_date = #{pwdUpdateDate,jdbcType=DATETIME}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=DATETIME}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=DATETIME}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="delFlag != null">
+                and del_flag = #{delFlag,jdbcType=TINYINT}
+            </if>
+            <if test="createStartDate != null">
+                and create_time <![CDATA[ >= ]]> #{createStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createEndDate != null">
+                and create_time <![CDATA[ <= ]]> #{createEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateStartDate != null">
+                and update_time <![CDATA[ >= ]]> #{updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateEndDate != null">
+                and update_time <![CDATA[ <= ]]> #{updateEndDate,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+    <select id="selectChatUserByCondition" resultType="cn.sxgan.chat.common.entity.ChatUser" resultMap="BaseResultMap"
+            parameterType="cn.sxgan.chat.common.entity.query.ChatUserQuery">
+        select
+        <include refid="BaseColumnList"/>
+        from chat_user
+        <include refid="ConditionSql"/>
+    </select>
+</mapper>
