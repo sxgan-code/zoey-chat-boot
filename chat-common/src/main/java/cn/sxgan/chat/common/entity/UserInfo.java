@@ -23,12 +23,12 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Schema(description = "用户ID", type = "Integer", example = "000000")
-    private Long id;
+    private String id;
     @Schema(description = "密码", type = "String", example = "123456")
     private String password;
     @Pattern(regexp = "^\\S{1,10}$")
     @Schema(description = "用户昵称", type = "String", example = "小张")
-    private String userName;
+    private String nickname;
     @NotEmpty
     @Email
     @Schema(description = "邮箱", type = "String", example = "123@123.com")

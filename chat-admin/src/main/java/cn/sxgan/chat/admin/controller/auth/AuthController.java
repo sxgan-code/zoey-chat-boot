@@ -58,4 +58,10 @@ public class AuthController implements IAuthControllerApi {
     public Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response) {
         return authService.getImgVerifyCode(response);
     }
+    
+    @Override
+    @PostMapping("/signin")
+    public Result<Map<String, String>> signin(@RequestBody UserInfo userInfo) {
+        return authService.userAuthByEmail(userInfo);
+    }
 }

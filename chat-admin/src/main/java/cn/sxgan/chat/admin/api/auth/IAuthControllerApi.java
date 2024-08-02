@@ -48,4 +48,14 @@ public interface IAuthControllerApi {
                     @ApiResponse(responseCode = "400", description = "返回400时错误")
             })
     Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response);
+    
+    @Operation(summary = "登录", description = "登录接口",
+            parameters = {
+                    @Parameter(name = "userInfo", description = "用户会话对象", content = @Content(mediaType = "application/json", schema = @Schema(contentSchema = UserInfo.class)))
+            },
+            responses = {
+                    @ApiResponse(description = "返回登录结果", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
+                    @ApiResponse(responseCode = "700~800", description = "系统权限校验业务错误")
+            })
+    Result<Map<String, String>> signin(UserInfo userInfo);
 }

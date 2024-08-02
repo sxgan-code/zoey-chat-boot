@@ -13,6 +13,7 @@ import cn.sxgan.chat.common.response.Result;
 import cn.sxgan.chat.common.utils.RandomUtil;
 import cn.sxgan.chat.common.utils.RedisUtil;
 import cn.sxgan.chat.common.utils.VerifyCodeUtil;
+import cn.sxgan.chat.common.utils.secret.JwtUtil;
 import cn.sxgan.chat.common.utils.secret.PwdUtil;
 import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -47,7 +49,38 @@ public class AuthServiceImpl implements IAuthService {
     
     @Override
     public Result<Map<String, String>> userAuthByEmail(UserInfo userInfo) {
-        return null;
+        String checkStr = checkImgVerifyCode(userInfo);
+        if (checkStr != null) {
+            return Result.fail(Maps.newHashMap(), ResStatusEnum.EXCEPTION_STATUS_999.getCode(), checkStr);
+        }
+        HashMap<String, String> map = Maps.newHashMap();
+        ChatUserQuery userQuery = new ChatUserQuery();
+        userQuery.setEmail(userInfo.getEmail());
+        List<ChatUser> userList = chatUserMapper.selectChatUserByCondition(userQuery);
+        if (!userList.isEmpty()) {
+            ChatUser user = userList.getFirst();
+            // 判断密码是否正确,加密密码与库中（user对象）的password比对是否相同
+            if (PwdUtil.matches(user.getPassword(), userInfo.getPassword())) {
+                // 允许登陆，生成令牌
+                // 写入用户信息
+                HashMap<String, Object> tokenMap = new HashMap<>();
+                tokenMap.put("email", user.getEmail());
+                tokenMap.put("id", user.getUserId());
+                String token = JwtUtil.createToken(tokenMap, ZoeyConfig.tokenKey);
+                userInfo.setId(user.getUserId());
+                userInfo.setNickname(user.getNickname());
+                redisUtil.set(RedisConst.LOGIN_TOKEN_PREFIX + token, userInfo, RedisConst.LOGIN_TIME_1,
+                        TimeUnit.DAYS);
+                map.put("token", token);
+                return Result.success(map, 0);
+            } else {
+                return Result.fail(Maps.newHashMap(), ResStatusEnum.EXCEPTION_STATUS_703.getCode(),
+                        ResStatusEnum.EXCEPTION_STATUS_703.getMsg());
+            }
+        } else {
+            return Result.fail(Maps.newHashMap(), ResStatusEnum.EXCEPTION_STATUS_701.getCode(),
+                    ResStatusEnum.EXCEPTION_STATUS_701.getMsg());
+        }
     }
     
     @Override
@@ -122,5 +155,18 @@ public class AuthServiceImpl implements IAuthService {
         redisUtil.set(RedisConst.IMG_CAPTCHA_PREFIX + vToken, verifyCodeUtils.getText(), 60, TimeUnit.SECONDS);
         log.info("MailSendServiceImpl.getVerifyCodeImg当前生成数据为：{}", result);
         return Result.success(result);
+    }
+    
+    private String checkImgVerifyCode(UserInfo userInfo) {
+        if (userInfo != null && StringUtils.isBlank(userInfo.getImgVerifyCode())) {
+            return ResStatusEnum.EXCEPTION_STATUS_900.getMsg();
+        }
+        String imgCode = redisUtil.get(RedisConst.IMG_CAPTCHA_PREFIX + userInfo.getVerToken(), String.class);
+        if (imgCode == null) {
+            return ResStatusEnum.EXCEPTION_STATUS_708.getMsg();
+        } else if (!imgCode.equalsIgnoreCase(userInfo.getImgVerifyCode())) {
+            return ResStatusEnum.EXCEPTION_STATUS_705.getMsg();
+        }
+        return null;
     }
 }
