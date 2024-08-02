@@ -28,7 +28,7 @@ spring:
     # 发送验证码的邮箱（发件人的邮箱）
     username: zoey.code@foxmail.com
     # 授权码
-    password: xxxxxxxx
+    password: ZOEY_ENC(HXkscIRUqNkC7Jj9ma/7v1ogTeNDtzKKEE6DFAJofik=)
     # 编码
     default-encoding: utf-8
     # 端口
