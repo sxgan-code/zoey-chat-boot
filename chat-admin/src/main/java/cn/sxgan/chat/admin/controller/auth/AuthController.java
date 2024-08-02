@@ -1,6 +1,7 @@
 package cn.sxgan.chat.admin.controller.auth;
 
 import cn.sxgan.chat.admin.api.auth.IAuthControllerApi;
+import cn.sxgan.chat.admin.service.impl.AuthServiceImpl;
 import cn.sxgan.chat.admin.service.impl.MailSendServiceImpl;
 import cn.sxgan.chat.common.entity.UserInfo;
 import cn.sxgan.chat.common.enums.ResStatusEnum;
@@ -27,6 +28,9 @@ public class AuthController implements IAuthControllerApi {
     @Resource
     MailSendServiceImpl mailSendService;
     
+    @Resource
+    AuthServiceImpl authService;
+    
     @Override
     @PostMapping("/mailVerifyCode")
     public Result<String> sendEmailVerifyCode(@RequestBody UserInfo userInfo) {
@@ -43,7 +47,8 @@ public class AuthController implements IAuthControllerApi {
     }
     
     @Override
-    public Result<Map<String, String>> signup(UserInfo userInfo) {
-        return null;
+    @PostMapping("/signup")
+    public Result<Map<String, String>> signup(@RequestBody UserInfo userInfo) {
+        return authService.signupUserByEmail(userInfo);
     }
 }

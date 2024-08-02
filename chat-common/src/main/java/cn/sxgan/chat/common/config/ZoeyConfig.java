@@ -1,6 +1,5 @@
 package cn.sxgan.chat.common.config;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +9,25 @@ import org.springframework.stereotype.Component;
  * @Date: 24/8/1 18:15
  * @Version: 1.0
  **/
-@Data
 @Component
 public class ZoeyConfig {
-    @Value("${token.admin.secretKey}")
-    String secretKey;
+    
+    public static String adminSecretKey;
+    public static Integer emailKeyTime;
+    public static String tokenKey;
+    
+    @Value("${zoey.auth.admin-secret-key}")
+    public void setAdminSecretKey(String adminSecretKey) {
+        ZoeyConfig.adminSecretKey = adminSecretKey;
+    }
+    
+    @Value("${zoey.auth.email-key-time}")
+    public void setEmailKeyTime(Integer emailKeyTime) {
+        ZoeyConfig.emailKeyTime = emailKeyTime;
+    }
+    
+    @Value("${zoey.auth.token-key}")
+    public void setTokenKey(String tokenKey) {
+        ZoeyConfig.tokenKey = tokenKey;
+    }
 }

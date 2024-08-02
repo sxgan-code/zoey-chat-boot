@@ -33,7 +33,8 @@ public enum ResStatusEnum {
     EXCEPTION_STATUS_705(705, "你填写的验证码有误"),
     EXCEPTION_STATUS_706(706, "该邮箱已经注册，请前往登陆"),
     EXCEPTION_STATUS_707(707, "更新失败"),
-    EXCEPTION_STATUS_708(708, "验证码已过期，请重新刷新"),
+    EXCEPTION_STATUS_708(708, "图片验证码已过期，请重新刷新"),
+    EXCEPTION_STATUS_709(709, "邮箱验证码已过期，请重新请求验证码"),
     
     
     // 邮件发送异常

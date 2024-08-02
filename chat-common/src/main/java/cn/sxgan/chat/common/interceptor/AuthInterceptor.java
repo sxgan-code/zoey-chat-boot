@@ -35,19 +35,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Resource
     RedisUtil redisUtil;
     
-    @Resource
-    ZoeyConfig zoeyConfig;
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Authorization");
         String adminToken = request.getHeader("AdminToken");
-        // 拦截器在bean初始化前执行的，这时候zoeyConfig是null，需要通过下面这个方式去获取
-        if (zoeyConfig == null) {
-            WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
-            zoeyConfig = wac.getBean(ZoeyConfig.class);
-        }
-        if (zoeyConfig.getSecretKey().equals(adminToken)) {
+        if (ZoeyConfig.adminSecretKey.equals(adminToken)) {
             return true;
         }
         if (StringUtils.isBlank(token) || !JwtUtil.checkToken(token)) {

@@ -20,7 +20,7 @@ import java.util.Map;
 @Tag(name = "认证服务", description = "用户权限校验")
 public interface IAuthControllerApi {
     
-    @Operation(summary = "验证码", description = "请求邮箱验证码",
+    @Operation(summary = "获取邮箱验证码", description = "请求邮箱验证码",
             parameters = {
                     @Parameter(name = "UserInfo", description = "用户会话对象", content = @Content(mediaType = "application/json", schema = @Schema(contentSchema = UserInfo.class)))
             },

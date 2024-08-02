@@ -1,3 +1,9 @@
+zoey:
+  auth:
+    email-key-time: 300 # 邮箱验证码保持时间，单位秒
+    admin-secret-key: ZOEY_ENC(my3gQn6puBYGtC4r0T8F/A==) # 管理免认证AdminToken
+    token-key: zoey2024
+
 spring:
   application:
     name: java-boot-base
@@ -11,11 +17,6 @@ spring:
       max-file-size: 100MB
       max-request-size: 10MB
       enabled: true
-# tokenKey
-token:
-  key: zoey2024
-  admin:
-    secretKey: ZOEY_ENC(my3gQn6puBYGtC4r0T8F/A==)
 jasypt:
   encryptor:
     # 加密算法
