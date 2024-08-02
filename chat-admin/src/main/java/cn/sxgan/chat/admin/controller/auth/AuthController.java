@@ -7,6 +7,7 @@ import cn.sxgan.chat.common.entity.UserInfo;
 import cn.sxgan.chat.common.enums.ResStatusEnum;
 import cn.sxgan.chat.common.response.Result;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,5 +51,11 @@ public class AuthController implements IAuthControllerApi {
     @PostMapping("/signup")
     public Result<Map<String, String>> signup(@RequestBody UserInfo userInfo) {
         return authService.signupUserByEmail(userInfo);
+    }
+    
+    @Override
+    @PostMapping("/imgVerifyCode")
+    public Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response) {
+        return authService.getImgVerifyCode(response);
     }
 }

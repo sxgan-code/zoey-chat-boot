@@ -12,16 +12,20 @@ import cn.sxgan.chat.common.mappers.IChatUserMapper;
 import cn.sxgan.chat.common.response.Result;
 import cn.sxgan.chat.common.utils.RandomUtil;
 import cn.sxgan.chat.common.utils.RedisUtil;
+import cn.sxgan.chat.common.utils.VerifyCodeUtil;
 import cn.sxgan.chat.common.utils.secret.PwdUtil;
 import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description: 认证服务实现类
@@ -101,6 +105,22 @@ public class AuthServiceImpl implements IAuthService {
                     ResStatusEnum.EXCEPTION_STATUS_702.getMsg());
         }
         return Result.success(Maps.newHashMap(), 0);
-        
+    }
+    
+    @Override
+    public Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response) {
+        Map<String, String> result = Maps.newHashMap();
+        VerifyCodeUtil verifyCodeUtils = null;
+        try {
+            verifyCodeUtils = new VerifyCodeUtil();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String vToken = verifyCodeUtils.getVToken();
+        result.put("base64Img", verifyCodeUtils.getBase64ImageStr());
+        result.put("verToken", vToken);
+        redisUtil.set(RedisConst.IMG_CAPTCHA_PREFIX + vToken, verifyCodeUtils.getText(), 60, TimeUnit.SECONDS);
+        log.info("MailSendServiceImpl.getVerifyCodeImg当前生成数据为：{}", result);
+        return Result.success(result);
     }
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
@@ -40,4 +41,11 @@ public interface IAuthControllerApi {
                     @ApiResponse(responseCode = "400", description = "返回400时错误")
             })
     Result<Map<String, String>> signup(UserInfo userInfo);
+    
+    @Operation(summary = "获取图片验证码", description = "请求图片验证码",
+            responses = {
+                    @ApiResponse(description = "返回验证码", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))),
+                    @ApiResponse(responseCode = "400", description = "返回400时错误")
+            })
+    Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response);
 }

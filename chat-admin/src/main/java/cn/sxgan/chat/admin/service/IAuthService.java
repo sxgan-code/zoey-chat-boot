@@ -2,6 +2,7 @@ package cn.sxgan.chat.admin.service;
 
 import cn.sxgan.chat.common.entity.UserInfo;
 import cn.sxgan.chat.common.response.Result;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
@@ -28,4 +29,12 @@ public interface IAuthService {
      * @return 提示消息
      */
     Result<Map<String, String>> signupUserByEmail(UserInfo userInfo);
+    
+    /**
+     * 获取图片验证码
+     *
+     * @param response HttpServletResponse
+     * @return 图片验证码
+     */
+    Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response);
 }
