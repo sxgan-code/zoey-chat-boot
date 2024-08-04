@@ -9,6 +9,7 @@ import cn.sxgan.chat.common.response.Result;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class AuthController implements IAuthControllerApi {
     }
     
     @Override
-    @PostMapping("/imgVerifyCode")
+    @GetMapping("/imgVerifyCode")
     public Result<Map<String, String>> getImgVerifyCode(HttpServletResponse response) {
         return authService.getImgVerifyCode(response);
     }
