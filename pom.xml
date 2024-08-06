@@ -10,11 +10,10 @@
         <module>chat-admin</module>
         <module>chat-core</module>
     </modules>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
     </parent>
 
     <name>zoey-chat-boot</name>
@@ -31,7 +30,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Project version -->
         <!--版本说明：https://github.com/alibaba/spring-cloud-alibaba/wiki/-->
-        <spring.boot.version>3.3.1</spring.boot.version>
+        <spring.boot.version>3.3.2</spring.boot.version>
         <!--        <spring-cloud.version>2022.0.0</spring-cloud.version>-->
         <!--        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>-->
 
