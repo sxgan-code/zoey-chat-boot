@@ -17,3 +17,9 @@
 ## 内置功能
 
 ## 演示图
+
+## 运行
+
+```sh
+nohup java -jar -Djasypt.encryptor.password=xxxx chat-admin-0.0.1-SNAPSHOT.jar>nohup.log &
+```
