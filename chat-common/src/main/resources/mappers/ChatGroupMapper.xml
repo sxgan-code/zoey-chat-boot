@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.sxgan.chat.common.mappers.IChatGroupMapper">
+    <resultMap id="BaseResultMap" type="cn.sxgan.chat.common.entity.ChatGroup">
+        <result property="groupId" column="group_id"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupOwnerId" column="group_owner_id"/>
+        <result property="groupNotice" column="group_notice"/>
+        <result property="joinType" column="join_type"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        group_id,
+        group_name,
+        group_owner_id,
+        group_notice,
+        join_type,
+        status,
+        create_time,
+        update_time
+    </sql>
+    <sql id="ConditionSql">
+        <where>
+            <if test="groupId != null">
+                and group_id = #{groupId,jdbcType=VARCHAR}
+            </if>
+            <if test="groupName != null">
+                and group_name = #{groupName,jdbcType=VARCHAR}
+            </if>
+            <if test="groupOwnerId != null">
+                and group_owner_id = #{groupOwnerId,jdbcType=VARCHAR}
+            </if>
+            <if test="groupNotice != null">
+                and group_notice = #{groupNotice,jdbcType=VARCHAR}
+            </if>
+            <if test="joinType != null">
+                and join_type = #{joinType,jdbcType=TINYINT}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=TINYINT}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=DATETIME}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=DATETIME}
+            </if>
+            <if test="createStartDate != null">
+                and create_time <![CDATA[ >= ]]> #{createStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createEndDate != null">
+                and create_time <![CDATA[ <= ]]> #{createEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateStartDate != null">
+                and update_time <![CDATA[ >= ]]> #{updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateEndDate != null">
+                and update_time <![CDATA[ <= ]]> #{updateEndDate,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+    <select id="selectChatGroupByCondition" resultType="cn.sxgan.chat.common.entity.ChatGroup" resultMap="BaseResultMap"
+            parameterType="cn.sxgan.chat.common.entity.query.ChatGroupQuery">
+        select
+        <include refid="BaseColumnList"/>
+        from chat_group
+        <include refid="ConditionSql"/>
+    </select>
+</mapper>

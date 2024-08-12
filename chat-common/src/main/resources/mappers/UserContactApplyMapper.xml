@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.sxgan.chat.common.mappers.IUserContactApplyMapper">
+    <resultMap id="BaseResultMap" type="cn.sxgan.chat.common.entity.UserContactApply">
+        <result property="applyId" column="apply_id"/>
+        <result property="applyUserId" column="apply_user_id"/>
+        <result property="ackUserId" column="ack_user_id"/>
+        <result property="contactType" column="contact_type"/>
+        <result property="contactId" column="contact_id"/>
+        <result property="status" column="status"/>
+        <result property="applyInfo" column="apply_info"/>
+        <result property="lastApplyTime" column="last_apply_time"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="BaseColumnList">
+        apply_id,
+        apply_user_id,
+        ack_user_id,
+        contact_type,
+        contact_id,
+        status,
+        apply_info,
+        last_apply_time
+    </sql>
+    <sql id="ConditionSql">
+        <where>
+            <if test="applyId != null">
+                and apply_id = #{applyId,jdbcType=BIGINT}
+            </if>
+            <if test="applyUserId != null">
+                and apply_user_id = #{applyUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="ackUserId != null">
+                and ack_user_id = #{ackUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="contactType != null">
+                and contact_type = #{contactType,jdbcType=TINYINT}
+            </if>
+            <if test="contactId != null">
+                and contact_id = #{contactId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=TINYINT}
+            </if>
+            <if test="applyInfo != null">
+                and apply_info = #{applyInfo,jdbcType=VARCHAR}
+            </if>
+            <if test="lastApplyTime != null">
+                and last_apply_time = #{lastApplyTime,jdbcType=BIGINT}
+            </if>
+            <if test="createStartDate != null">
+                and create_time <![CDATA[ >= ]]> #{createStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createEndDate != null">
+                and create_time <![CDATA[ <= ]]> #{createEndDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateStartDate != null">
+                and update_time <![CDATA[ >= ]]> #{updateStartDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateEndDate != null">
+                and update_time <![CDATA[ <= ]]> #{updateEndDate,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+    <select id="selectUserContactApplyByCondition" resultType="cn.sxgan.chat.common.entity.UserContactApply"
+            resultMap="BaseResultMap"
+            parameterType="cn.sxgan.chat.common.entity.query.UserContactApplyQuery">
+        select
+        <include refid="BaseColumnList"/>
+        from user_contact_apply
+        <include refid="ConditionSql"/>
+    </select>
+</mapper>

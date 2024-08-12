@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "cn.sxgan.chat.common.mappers", markerInterface = BaseMapper.class, annotationClass = Mapper.class)
 @ComponentScan(basePackages = {"cn.sxgan.chat.admin", "cn.sxgan.chat.common", "cn.sxgan.chat.core"})
 public class ChatAdminApplication {
-    
     public static void main(String[] args) {
         SpringApplication.run(ChatAdminApplication.class, args);
     }
